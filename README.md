@@ -1,2 +1,2 @@
 # python-algorithms
-Algorithms and data structures implemented in Python
+Algorithms implemented in Python
