@@ -7,6 +7,7 @@ class Matrix:
         self.columns = columns
         self.matrix = self.construct()
 
+
     ''' Calling print() on this Matrix will display the matrix itself.'''
     def __str__(self):
         string = ""
@@ -20,6 +21,7 @@ class Matrix:
             string += "]\n"
         return string
 
+
     ''' Creates a null matrix with rows and columns set in __init__.'''
     def construct(self):
         matrix = []
@@ -30,22 +32,27 @@ class Matrix:
             matrix.append(row)
         return matrix
 
+
     ''' Returns the number of rows in the matrix.'''
     def numRows(self):
         return self.rows
+
 
     ''' Returns the number of columns in the matrix.'''
     def numCols(self):
         return self.columns
 
+
     ''' Assigns a value to an entry in the matrix.'''
     def assignValue(self, row, col, val):
         self.matrix[row][col] = val
+
 
     ''' To assign an entire matrix to self.matrix, you can either use assignMatrix(m),
         or directly modify the self.matrix variable.'''
     def assignMatrix(self, m):
         self.matrix = m
+
 
     ''' Adds matrix2 to self.matrix; __add__ allows you to use the plus
         sign for adding two matrices.'''
@@ -56,6 +63,7 @@ class Matrix:
                 answer[i][j] = self.matrix[i][j] + matrix2.matrix[i][j]
         return answer
 
+
     ''' Subtracts matrix2 from self.matrix; __sub__ allows you to use the minus
         sign for subtracting two matrices.'''
     def __sub__(self, matrix2):
@@ -65,16 +73,24 @@ class Matrix:
                 answer[i][j] = self.matrix[i][j] + matrix2.matrix[i][j]
         return answer
 
+
     ''' Multiplies matrix2 to self.matrix; __mul__ allows you to use the minus
         sign for subtracting two matrices.'''
     def __mul__(self, matrix2):
         answer = self.construct()
-        for i in range(len(self.matrix)):
-            for j in range(len(matrix2.matrix[0])):
-                total = 0
-                for k in range(len(self.matrix[0])):
-                    total += self.matrix[i][k] * matrix2.matrix[k][j]
-                answer[i][j] = total
+        # If matrix2 isn't actually a matrix but rather a scalar
+        if type(matrix2) == int or type(matrix2) == float:
+            for i in range(len(self.matrix)):
+                for j in range(len(self.matrix[0])):
+                    answer[i][j] = self.matrix[i][j] * matrix2
+        # Otherwise if matrix2 is actually a matrix
+        else:
+            for i in range(len(self.matrix)):
+                for j in range(len(matrix2.matrix[0])):
+                    total = 0
+                    for k in range(len(self.matrix[0])):
+                        total += self.matrix[i][k] * matrix2.matrix[k][j]
+                    answer[i][j] = total
         return answer
 
     
