@@ -59,8 +59,8 @@ class Matrix:
         sign for adding two matrices.'''
     def __add__(self, matrix2):
         answer = self.construct(self.rows, self.columns)
-        for i in range(len(self.matrix)):
-            for j in range(len(self.matrix[0])):
+        for i in range(self.rows):
+            for j in range(self.columns):
                 answer[i][j] = self.matrix[i][j] + matrix2.matrix[i][j]
         return answer
 
@@ -69,9 +69,9 @@ class Matrix:
         sign for subtracting two matrices.'''
     def __sub__(self, matrix2):
         answer = self.construct(self.rows, self.columns)
-        for i in range(len(self.matrix)):
-            for j in range(len(self.matrix[0])):
-                answer[i][j] = self.matrix[i][j] + matrix2.matrix[i][j]
+        for i in range(self.rows):
+            for j in range(self.columns):
+                answer[i][j] = self.matrix[i][j] - matrix2.matrix[i][j]
         return answer
 
 
@@ -80,15 +80,15 @@ class Matrix:
         answer = self.construct(self.rows, self.columns)
         # If matrix2 isn't actually a matrix but rather a scalar
         if type(matrix2) == int or type(matrix2) == float:
-            for i in range(len(self.matrix)):
-                for j in range(len(self.matrix[0])):
+            for i in range(self.rows):
+                for j in range(self.columns):
                     answer[i][j] = self.matrix[i][j] * matrix2
         # Otherwise if matrix2 is actually a matrix
         else:
-            for i in range(len(self.matrix)):
+            for i in range(self.columns):
                 for j in range(len(matrix2.matrix[0])):
                     total = 0
-                    for k in range(len(self.matrix[0])):
+                    for k in range(self.columns):
                         total += self.matrix[i][k] * matrix2.matrix[k][j]
                     answer[i][j] = total
         return answer
@@ -104,17 +104,17 @@ class Matrix:
     def determinant(self):
         det = 0
         # Matrices with 1 or 2 rows are base cases
-        if len(self.matrix) == 1:
+        if self.rows == 1:
             return self.matrix[0][0]
-        elif len(self.matrix) == 2:
+        elif self.rows == 2:
             return self.matrix[0][0]*self.matrix[1][1] - self.matrix[0][1]*self.matrix[1][0]
 
-        temp = self.construct(len(self.matrix)-1, len(self.matrix)-1)
-        for i in range(len(self.matrix)): # columns
+        temp = self.construct(self.rows-1, self.rows-1)
+        for i in range(self.columns): # columns
             x = 0 # variable representing the column being selected
-            for j in range(len(self.matrix)): # rows
+            for j in range(self.rows): # rows
                 if j != i: # i column is not included
-                    for k in range(1,len(self.matrix)):
+                    for k in range(1,self.rows):
                         temp[k-1][x] = self.matrix[k][j]
                     x += 1
             m = Matrix(len(temp), len(temp[0]))
@@ -126,12 +126,12 @@ class Matrix:
     ''' rrac stands for remove row and column.'''
     def rrac(self, row, column):
         inputMatrix = self.matrix
-        outputMatrix = self.construct(len(self.matrix)-1,len(self.matrix[0])-1)
+        outputMatrix = self.construct(self.rows-1,self.columns-1)
         x = 0
         y = 0
 
-        for i in range(len(self.matrix)):
-            for j in range(len(self.matrix[i])):
+        for i in range(self.rows):
+            for j in range(self.columns):
                 if i == row or j == column:
                     continue
                 elif y >= len(outputMatrix):
@@ -149,9 +149,9 @@ class Matrix:
 
     ''' Calculates the minors matrix.'''
     def minors(self):
-        answer = self.construct(len(self.matrix),len(self.matrix[0]))
-        for i in range(len(self.matrix[0])):
-            for j in range(len(self.matrix)):
+        answer = self.construct(self.rows, self.columns)
+        for i in range(self.columns):
+            for j in range(self.rows):
                 temp = self.rrac(j,i)
                 m = Matrix(len(temp), len(temp[0]))
                 m.assignMatrix(temp)
@@ -161,9 +161,9 @@ class Matrix:
 
     ''' Calculates the cofactors matrix.'''
     def cofactors(self):
-        answer = self.construct(len(self.matrix), len(self.matrix[0]))
-        for i in range(len(self.matrix[0])):
-            for j in range(len(self.matrix)):
+        answer = self.construct(self.rows, self.columns)
+        for i in range(self.columns):
+            for j in range(self.rows):
                 if (i+j) % 2 == 1:
                     answer[j][i] = -1*self.matrix[j][i]
                 else:
@@ -173,9 +173,9 @@ class Matrix:
 
     ''' Returns the transpose of self.matrix.'''
     def transpose(self):
-        answer = self.construct(len(self.matrix), len(self.matrix[0]))
-        for i in range(len(self.matrix[0])):
-            for j in range(len(self.matrix)):
+        answer = self.construct(self.rows, self.columns)
+        for i in range(self.columns):
+            for j in range(self.rows):
                 answer[j][i] = self.matrix[i][j]
         return answer
 
