@@ -17,6 +17,37 @@ class HashTable:
             self.hashtable.append([None, None])
 
 
+    ''' Calling print() on this HashTable will print the hash table itself.'''
+    def __str__(self):
+        string = ""
+        for i in range(self.m):
+            for j in range(0,len(self.hashtable[i]),2):
+                
+                # Only print items with a key and/or value in them
+                if None not in self.hashtable[i]:
+                    # Series of if/elif/else statements is for correct concatenation
+                    
+                    # If both the key and value are not strings
+                    if type(self.hashtable[i][j]) != str and type(self.hashtable[i][j+1]) != str:
+                        string += str(self.hashtable[i][j]) + ": " + str(self.hashtable[i][j+1])
+
+                    # If only the key is not a string
+                    if type(self.hashtable[i][j]) != str:
+                        string += str(self.hashtable[i][j]) + ": " + self.hashtable[i][j+1]
+                        
+                    # If only the value is not a string
+                    elif type(self.hashtable[i][j+1]) != str:
+                        string += self.hashtable[i][j] + ": " + str(self.hashtable[i][j+1])
+                        
+                    # Otherwise if both key and value are strings
+                    else:
+                        string += self.hashtable[i][j] + ": " + self.hashtable[i][j+1]
+                        
+                    string += "\n"
+                    
+        return string
+
+
     ''' Calculates hash for a string and puts the string in the respective index
         of the hash table.'''
     def hash(self, s):
