@@ -8,19 +8,26 @@ class HashTable:
         self.m = m
         self.r = 31
         self.hashtable = []
+        self.construct()
+
+
+    ''' Initial setup for hash table.'''
+    def construct(self):
+        for i in range(self.m):
+            self.hashtable.append([None, None])
 
 
     ''' Calculates hash for a string and puts the string in the respective index
         of the hash table.'''
-    def hash(s):
+    def hash(self, s):
         h = 0 # hash
         for i in range(len(s)):
-            h = (self.r * h + s[i]) % self.m
+            h = (self.r * h + ord(s[i])) % self.m
         return h
 
 
     ''' Inserts key-value pair into hash table.'''
-    def put(k, v):
+    def put(self, k, v):
         index = self.hash(k)
         if self.hashtable[index][0] == None:
             self.hashtable[index][0] = k
@@ -32,7 +39,7 @@ class HashTable:
 
 
     ''' Searches for a key in the hash table.'''
-    def find(k):
+    def find(self, k):
         k = k.lower()
         index = self.hash(k)
         # Having a step of 2 ensures we only check keys
@@ -43,7 +50,7 @@ class HashTable:
 
 
     ''' Gets the value given a key.'''
-    def getValue(k):
+    def getValue(self, k):
         index = self.hash(k)
         # Having a step of 2 ensures we only check values
         for i in range(0,len(self.hashtable[index]),2):
@@ -55,7 +62,7 @@ class HashTable:
 
 
     ''' Returns an array of the keys.'''
-    def keys():
+    def keys(self):
         keysArray = []
         for i in range(self.m):
             for j in range(0,len(self.hashtable[i]),2):
@@ -64,7 +71,7 @@ class HashTable:
 
 
     ''' Returns an array of the values.'''
-    def values():
+    def values(self):
         valuesArray = []
         for i in range(self.m):
             for j in range(1,len(self.hashtable[i]),2):
