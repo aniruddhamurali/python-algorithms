@@ -19,7 +19,7 @@ class HashTable:
 
     ''' Calling print() on this HashTable will print the hash table itself.'''
     def __str__(self):
-        string = ""
+        string = "{\n"
         for i in range(self.m):
             for j in range(0,len(self.hashtable[i]),2):
                 
@@ -42,9 +42,12 @@ class HashTable:
                     # Otherwise if both key and value are strings
                     else:
                         string += self.hashtable[i][j] + ": " + self.hashtable[i][j+1]
-                        
-                    string += "\n"
-                    
+
+                    string += ",\n"
+
+        # Remove the extra ",\n" at the end
+        string = string[:len(string)-2]
+        string += "\n}"                   
         return string
 
 
