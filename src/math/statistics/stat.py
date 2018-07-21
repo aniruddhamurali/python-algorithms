@@ -18,13 +18,19 @@ class stat:
         return fiveNum[3] - fiveNum[1]
 
 
-    ''' Calculate the standard deviation of a dataset.'''
-    def stdev(data):
+    ''' Calculate the standard deviation of a dataset. Differentiates between
+        sample and population. Set datatype to be either 'sample' or 'population'
+        to get the correct output.'''
+    def stdev(data, datatype):
+        if datatype.lower() == "sample":
+            denom = len(data) - 1
+        elif datatype.lower() == "population":
+            denom = len(data)
         m = stat.mean(data)
         answer = 0
         for n in data:
             answer += (n-m)**2
-        answer = pow(answer/(len(data)-1), 0.5)
+        answer = pow(answer/denom, 0.5)
         return answer
 
 
