@@ -58,6 +58,8 @@ class Matrix:
     ''' Adds matrix2 to self.matrix; __add__ allows you to use the plus
         sign for adding two matrices.'''
     def __add__(self, matrix2):
+        if len(self.matrix) != len(matrix2) or len(self.matrix[0]) != len(matrix2[0]):
+            raise Exception("Matrices must have the same dimensions")
         answer = self.construct(self.rows, self.columns)
         for i in range(self.rows):
             for j in range(self.columns):
@@ -68,6 +70,8 @@ class Matrix:
     ''' Subtracts matrix2 from self.matrix; __sub__ allows you to use the minus
         sign for subtracting two matrices.'''
     def __sub__(self, matrix2):
+        if len(self.matrix) != len(matrix2) or len(self.matrix[0]) != len(matrix2[0]):
+            raise Exception("Matrices must have the same dimensions")
         answer = self.construct(self.rows, self.columns)
         for i in range(self.rows):
             for j in range(self.columns):
@@ -97,6 +101,9 @@ class Matrix:
     ''' Calls multiply(); __mul__ allows you to use the minus sign for multiplying
         two matrices.'''
     def __mul__(self, matrix2):
+        # number of columns in self.matrix must equal number of rows in matrix2
+        if len(self.matrix[0]) != len(matrix2):
+            raise Exception("The number of columns in the first matrix must equal the number of rows in the second matrix")
         return self.multiply(matrix2)
 
 
@@ -185,8 +192,7 @@ class Matrix:
     def inverse(self):
         # Matrices with a determinant of 0 do not have an inverse
         if self.determinant() == 0:
-            print("This matrix does not have an inverse.")
-            return None
+            raise Exception("This matrix does not have an inverse")
         else:
             temp = self.matrix
             self.assignMatrix(self.minors())
