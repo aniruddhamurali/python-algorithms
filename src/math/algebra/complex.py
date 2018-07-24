@@ -76,3 +76,13 @@ class Complex:
     def __abs__(self):
         return pow(self.r**2 + self.i**2, .5)
 
+
+    ''' Returns the real component of the complex number.'''
+    def real(self):
+        return self.r
+
+
+    ''' Returns the imaginary component of the complex number.'''
+    def imaginary(self):
+        return self.i
+
