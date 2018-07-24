@@ -98,8 +98,8 @@ class Matrix:
         return answer
 
 
-    ''' Calls multiply(); __mul__ allows you to use the minus sign for multiplying
-        two matrices.'''
+    ''' Calls multiply(); __mul__ allows you to use the multiplication sign for
+        multiplying two matrices.'''
     def __mul__(self, matrix2):
         # number of columns in self.matrix must equal number of rows in matrix2
         if len(self.matrix[0]) != len(matrix2):
