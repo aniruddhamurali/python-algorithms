@@ -33,3 +33,13 @@ class Complex:
     def __sub__(self, c):
         new_complex = Complex(self.r - c.r, self.i - c.i)
         return new_complex
+
+    def __mul__(self, c):
+        if type(c) == int or type(c) == float:
+            new_complex = Complex(self.r*c, self.i*c)
+        else:
+            # (a+bi)(c+di) = ac + a*di + b*ci - b*d
+            new_complex = Complex(self.r*c.r - self.i*c.i, self.r*c.i + self.i*c.r)
+        return new_complex
+
+
