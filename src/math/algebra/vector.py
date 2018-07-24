@@ -90,4 +90,35 @@ class Vector:
         self.vector[index] = value
 
 
+    ''' Adds two vectors.'''
+    def add(self, v):
+        if len(self.vector) != len(v.vector):
+            raise Exception("Vectors must have the same number of components")
+        sum_vector = []
+        for i in range(len(self.vector)):
+            sum_vector.append(self.vector[i] + v.vector[i])
+        new_vector = Vector(sum_vector)
+        return new_vector
+
+
+    ''' Subtracts two vectors.'''
+    def sub(self, v):
+        if len(self.vector) != len(v.vector):
+            raise Exception("Vectors must have the same number of components")
+        diff_vector = []
+        for i in range(len(self.vector)):
+            diff_vector.append(self.vector[i] - v.vector[i])
+        new_vector = Vector(diff_vector)
+        return new_vector
+
+
+    ''' Calculates the magnitude of the vector.'''
+    def mag(self):
+        total = 0
+        for i in self.vector:
+            total += i**2
+        return pow(total, .5)
+        
+
+
     
