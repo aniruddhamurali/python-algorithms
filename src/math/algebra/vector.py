@@ -118,6 +118,16 @@ class Vector:
         for i in self.vector:
             total += i**2
         return pow(total, .5)
+
+
+    ''' Calculates the dot product of two vectors.'''
+    def dot(self, v):
+        if len(self.vector) != len(v.vector):
+            raise Exception("Vectors must have the same number of components")
+        total = 0
+        for i in range(len(self.vector)):
+            total += self.vector[i] * v.vector[i]
+        return total
         
 
 
