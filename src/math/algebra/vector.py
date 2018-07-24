@@ -56,6 +56,7 @@ class Vector:
         for i in range(len(self.vector)):
             if self.vector[i] == value:
                 return i
+        raise Exception("Value is not a component of the vector")
 
     ''' Appends value onto the end of the vector.'''
     def append(self, value):
@@ -67,12 +68,22 @@ class Vector:
 
     ''' Remove a component from the vector.'''
     def remove(self, index):
+        if len(self.vector) == 0:
+            raise Exception("Vector is empty")
         del self.vector[index]
 
     ''' Removes all components of the vector.'''
     def clear(self):
         for i in range(len(self.vector)):
             del self.vector[0]
+
+    ''' Returns the number of occurrences of the given value.'''
+    def count(self, value):
+        c = 0
+        for i in self.vector:
+            if i == value:
+                c += 1
+        return c
 
     ''' Sets a component of the vector with the given value at the given index.'''
     def component(self, index, value):
