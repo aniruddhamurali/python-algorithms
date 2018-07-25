@@ -201,5 +201,57 @@ class Matrix:
             answer = self.multiply(1/(self.determinant()))
             self.matrix = temp
             return answer
-                        
+
+
+    ''' Pivoting function used in gauss_jordan().'''
+    def pivot(self, m, n, i):
+        maximum = -1e100
+        for r in range(i, n):
+            if maximum < abs(m[r][i]):
+                max_row = r
+                maximum = abs(m[r][i])
+        m[i], m[max_row] = m[max_row], m[i]
+
+
+    ''' Performs Gauss Jordan Elimination on a matrix.'''
+    def gauss_jordan(self):
+        m = self.matrix
+        n = len(m)
+        for i in range(n):
+            self.pivot(m, n, i)
+            for j in range(i+1, n):
+                m[j] = [m[j][k] - m[i][k]*m[j][i]/m[i][i] for k in range(n+1)]
+
+        if self.matrix[n-1][n-1] == 0:
+            raise ValueError('No unique solution')
+
+        # backward substitution
+        x = [0] * n
+        for i in range(n-1, -1, -1):
+            s = sum(m[i][j] * x[j] for j in range(i, n))
+            x[i] = (m[i][n] - s)/m[i][i]
+        return x
+
+
+    ''' Returns the matrix in reduced row echelon form using the Gauss Jordan
+        Elimination function (gauss_jordan()).'''
+    def rref(self):
+        gj = self.gauss_jordan()
+        answer = self.construct(self.rows, self.columns)
+
+        # Add a column to the identity matrix for reduced row echelon form
+        for i in range(self.rows):
+            for j in range(self.columns+1):
+                if j == self.columns:
+                    answer[i].append(gj[i])
+                elif i == j:
+                    answer[i][j] = 1
+                else:
+                    answer[i][j] = 0
+
+        return answer
+
+
     
+    
+
