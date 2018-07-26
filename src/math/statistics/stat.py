@@ -105,3 +105,21 @@ class stat:
             print("Has " + str(count) + " outliers:")
             print(outliers)
             return True
+
+
+    ''' Calculates n factorial (n!).'''
+    def factorial(n):
+        product = 1
+        for i in range(2,n+1):
+            product *= i
+        return product
+
+
+    ''' Returns nPr, the number of permutations of n things taken r at a time.'''
+    def combination(n, r):
+        return stat.factorial(n) / (stat.factorial(n-r) * stat.factorial(r))
+
+
+    ''' Returns nCr, the number of combinations of n things taken r at a time.'''
+    def permutation(n, r):
+        return stat.factorial(n) / (stat.factorial(n-r))
