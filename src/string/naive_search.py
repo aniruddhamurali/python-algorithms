@@ -10,4 +10,4 @@ def naive_search(string, pattern):
                 break
             elif j == n-1:
                 return i
-    return None
+    return -1

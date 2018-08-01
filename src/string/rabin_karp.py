@@ -10,4 +10,4 @@ def rabin_karp(string, pattern):
         if hash_string == hash_pattern:
             if string[i:i+n] == pattern:
                 return i
-    return None
+    return -1
