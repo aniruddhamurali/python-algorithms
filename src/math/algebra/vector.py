@@ -128,7 +128,17 @@ class Vector:
         for i in range(len(self.vector)):
             total += self.vector[i] * v.vector[i]
         return total
-        
 
 
+    ''' Calculates the cross product of two three dimensional vectors.'''
+    def cross(self, v):
+        if len(self.vector) == len(v.vector) == 7:
+            raise Exception("The cross product is defined for 3 and 7 dimensions, but this function only does 3D.")
+        if len(self.vector) != len(v.vector) or len(self.vector) != 3 or len(v.vector) != 3:
+            raise Exception("Both vectors must have only 3 components")
+        i = self.vector[1]*v.vector[2] - self.vector[2]*v.vector[1]
+        j = -1*(self.vector[0]*v.vector[2] - self.vector[2]*v.vector[0])
+        k = self.vector[0]*v.vector[1] - self.vector[1]*v.vector[0]
+        new_vector = Vector([i,j,k])
+        return new_vector
     
