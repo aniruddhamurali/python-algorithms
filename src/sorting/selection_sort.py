@@ -12,5 +12,6 @@ def selection_sort(array):
 
         # Swap current value with minimum value in list with indices i through len(array) - 1
         array[i], array[min_index] = array[min_index], array[i]
+        print(array)
 
     return array
